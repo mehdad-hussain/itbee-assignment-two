@@ -29,8 +29,8 @@ import { useUserStore } from "@/store/userStore";
 import { BadgeCheck, Bell, ChevronsUpDown, GalleryVerticalEnd, LogOut } from "lucide-react";
 import * as React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Breadcrumbs } from "../breadcrumbs";
-import { Icons } from "../icons";
+import { Breadcrumbs } from "../gadget/breadcrumbs";
+import { Icons } from "../gadget/icons";
 import ThemeToggle from "./theme-toggle";
 import { UserNav } from "./user-nav";
 

@@ -1,4 +1,4 @@
-import { Icons } from "@/components/icons";
+import { Icons } from "@/components/gadget/icons";
 
 export enum Role {
     Admin = "Admin",
@@ -15,4 +15,24 @@ export interface NavItem {
     label?: string;
     description?: string;
     isActive?: boolean;
+}
+
+export interface Project {
+    id: number;
+    name: string;
+    description: string;
+    status: string;
+    dueDate: string;
+    progress: number;
+    tasks: Task[];
+}
+
+export interface Task {
+    id: number;
+    name: string;
+    description: string;
+    status: string;
+    priority: string;
+    dueDate: string;
+    assignedUser: string;
 }

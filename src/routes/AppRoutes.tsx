@@ -1,4 +1,4 @@
-import PrivateRoute from "@/components/PrivateRoute";
+import PrivateRoute from "@/components/gadget/PrivateRoute";
 import MainLayout from "@/components/layouts/MainLayout";
 import NotFound from "@/pages/NotFound";
 import Kanban from "@/pages/kanban/Kanban";
