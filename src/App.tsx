@@ -1,14 +1,7 @@
-import { Button } from "@/components/ui/button";
+import AppRoutes from "@/routes/AppRoutes";
 import "./App.css";
 
 function App() {
-    return (
-        <div>
-            <Button size={"lg"} className="bg-red-500">
-                Click me
-            </Button>
-        </div>
-    );
+    return <AppRoutes />;
 }
-
 export default App;
