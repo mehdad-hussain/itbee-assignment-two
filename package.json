@@ -16,10 +16,8 @@
         }
     },
     "lint-staged": {
-        "*.{js,jsx,ts,tsx}": [
-            "eslint --fix",
-            "prettier --write"
-        ]
+        "*.{js,jsx,ts,tsx}": "eslint --cache --fix",
+        "*.{js,jsx,ts,tsx,css,scss,md}": "prettier --write"
     },
     "dependencies": {
         "react": "^18.3.1",
