@@ -9,7 +9,7 @@ const Login: React.FC = () => {
 
     const handleLogin = (role: Role) => {
         setUserRole(role);
-        navigate("/projects");
+        navigate("/dashboard");
     };
 
     return (

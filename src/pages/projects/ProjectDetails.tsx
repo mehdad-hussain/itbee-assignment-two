@@ -1,5 +1,7 @@
+import PageContainer from "@/components/layouts/page-container";
+
 const ProjectDetails = () => {
-    return <div>ProjectDetails</div>;
+    return <PageContainer scrollable>ProjectDetails</PageContainer>;
 };
 
 export default ProjectDetails;

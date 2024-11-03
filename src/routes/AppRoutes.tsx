@@ -1,7 +1,10 @@
 import PrivateRoute from "@/components/PrivateRoute";
-import MainLayout from "@/layouts/MainLayout";
+import MainLayout from "@/components/layouts/MainLayout";
+import NotFound from "@/pages/NotFound";
 import Login from "@/pages/auth/Login";
+import Kanban from "@/pages/kanban/Kanban";
 import ProjectDetails from "@/pages/projects/ProjectDetails";
+import ProjectList from "@/pages/projects/ProjectList";
 import ProjectOverview from "@/pages/projects/ProjectOverview";
 import { useUserStore } from "@/store/userStore";
 import { Role } from "@/types/types";
@@ -22,13 +25,21 @@ const AppRoutes: React.FC = () => {
                 },
                 {
                     path: "login",
-                    element: <Login />,
+                    element: userRole ? <Navigate to="/projects" replace /> : <Login />,
+                },
+                {
+                    path: "dashboard",
+                    element: (
+                        <PrivateRoute allowedRoles={[Role.Admin, Role.ProjectManager, Role.User]} userRole={userRole}>
+                            <ProjectOverview />
+                        </PrivateRoute>
+                    ),
                 },
                 {
                     path: "projects",
                     element: (
                         <PrivateRoute allowedRoles={[Role.Admin, Role.ProjectManager, Role.User]} userRole={userRole}>
-                            <ProjectOverview />
+                            <ProjectList />
                         </PrivateRoute>
                     ),
                 },
@@ -39,6 +50,18 @@ const AppRoutes: React.FC = () => {
                             <ProjectDetails />
                         </PrivateRoute>
                     ),
+                },
+                {
+                    path: "kanban",
+                    element: (
+                        <PrivateRoute allowedRoles={[Role.Admin, Role.ProjectManager, Role.User]} userRole={userRole}>
+                            <Kanban />
+                        </PrivateRoute>
+                    ),
+                },
+                {
+                    path: "*",
+                    element: <NotFound />,
                 },
             ],
         },
