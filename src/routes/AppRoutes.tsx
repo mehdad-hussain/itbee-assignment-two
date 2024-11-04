@@ -1,6 +1,7 @@
 import PrivateRoute from "@/components/gadget/PrivateRoute";
 import MainLayout from "@/components/layouts/MainLayout";
 import NotFound from "@/pages/NotFound";
+import Login from "@/pages/auth/Login";
 import Kanban from "@/pages/kanban/Kanban";
 import ProjectDetails from "@/pages/projects/ProjectDetails";
 import ProjectList from "@/pages/projects/ProjectList";
@@ -25,6 +26,10 @@ const AppRoutes: React.FC = () => {
                 {
                     path: "/dashboard",
                     element: <Navigate to="/dashboard/overview" replace />,
+                },
+                {
+                    path: "login",
+                    element: userRole ? <Navigate to="/projects" replace /> : <Login />,
                 },
                 {
                     path: "dashboard/overview",

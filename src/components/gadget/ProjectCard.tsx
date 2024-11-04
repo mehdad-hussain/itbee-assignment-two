@@ -4,14 +4,16 @@ import { Progress } from "@/components/ui/progress";
 import { Project } from "@/types/types";
 import { format } from "date-fns";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 interface ProjectCardProps {
     project: Project;
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
+    const navigate = useNavigate();
     return (
-        <Card className="p-4 shadow-md border border-gray-200">
+        <Card className="p-4 shadow-md border border-gray-200 cursor-pointer" onClick={() => navigate(`/projects/${project.id}`)}>
             <CardHeader>
                 <CardTitle className="text-lg font-semibold">{project.name}</CardTitle>
                 <CardDescription className="text-sm text-muted-foreground line-clamp-2">{project.description}...</CardDescription>
