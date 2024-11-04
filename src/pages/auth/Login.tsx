@@ -2,15 +2,19 @@ import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/store/userStore";
 import { Role } from "@/types/types";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 const Login: React.FC = () => {
-    const navigate = useNavigate();
     const setUserRole = useUserStore((state) => state.setUserRole);
 
     const handleLogin = (role: Role) => {
-        setUserRole(role);
-        navigate("/dashboard/overview");
+        const toastId = toast.success(`Logged in as ${role}`);
+
+        setTimeout(() => {
+            toast.dismiss(toastId);
+            setUserRole(role);
+        }, 500);
     };
 
     return (

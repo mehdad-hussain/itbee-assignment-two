@@ -11,19 +11,24 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useUserStore } from "@/store/userStore";
+import { toast } from "sonner";
 export function UserNav() {
     const userRole = useUserStore((state) => state.userRole);
 
     const signOut = () => {
-        useUserStore.getState().clearUserRole();
+        const toastId = toast.success("Logged out successfully");
+        setTimeout(() => {
+            toast.dismiss(toastId);
+            useUserStore.getState().clearUserRole();
+        }, 800);
     };
 
     if (userRole) {
         return (
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                        <Avatar className="h-8 w-8">
+                    <Button variant="ghost" className="relative w-8 h-8 rounded-full">
+                        <Avatar className="w-8 h-8">
                             <AvatarImage src={""} alt={userRole ?? ""} />
                             <AvatarFallback>{userRole}</AvatarFallback>
                         </Avatar>

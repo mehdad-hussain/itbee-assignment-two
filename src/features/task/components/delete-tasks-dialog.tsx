@@ -26,25 +26,23 @@ import { TrashIcon } from "@radix-ui/react-icons";
 import { type Row } from "@tanstack/react-table";
 import * as React from "react";
 import { useMedia } from "react-use";
+import { toast } from "sonner";
 import { Task } from "../schema/schema";
 
 interface DeleteTasksDialogProps extends React.ComponentPropsWithoutRef<typeof Dialog> {
     task: Row<Task>["original"];
     showTrigger?: boolean;
-    onSuccess?: () => void;
 }
 
 export function DeleteTasksDialog({ task, showTrigger = true, ...props }: DeleteTasksDialogProps) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [isDeletePending, startDeleteTransition] = React.useTransition();
     const isDesktop = useMedia("(min-width: 640px)", false);
 
     function onDelete() {
-        // startDeleteTransition(async () => {
-        //     // mutation.mutate(task.id);
-        //     // props.onOpenChange?.(false);
-        //     onSuccess?.();
-        // });
+        startDeleteTransition(() => {
+            props.onOpenChange?.(false);
+            toast.success("Task deleted successfully");
+        });
     }
 
     if (isDesktop) {

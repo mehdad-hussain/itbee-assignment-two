@@ -15,6 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
+import { toast } from "sonner";
 import { Task, TaskLabel, TaskPriority, TaskStatus, UpdateTask, updateTaskSchema } from "../schema/schema";
 
 interface UpdateTaskSheetProps extends React.ComponentPropsWithRef<typeof Sheet> {
@@ -23,7 +24,7 @@ interface UpdateTaskSheetProps extends React.ComponentPropsWithRef<typeof Sheet>
 
 export function UpdateTaskSheet({ task, ...props }: UpdateTaskSheetProps) {
     console.log("🚀 ~ UpdateTaskSheet ~ task:", task);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
     const [isUpdatePending, startUpdateTransition] = React.useTransition();
 
     const form = useForm<UpdateTask>({
@@ -53,15 +54,11 @@ export function UpdateTaskSheet({ task, ...props }: UpdateTaskSheetProps) {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function onSubmit(values: UpdateTask) {
-        // startUpdateTransition(async () => {
-        //     // mutation.mutate(values, {
-        //     //     onSuccess: () => {
-        //     //         form.reset();
-        //     //         toast.success("Task updated");
-        //     //     },
-        //     // });
-        //     props.onOpenChange?.(false);
-        // });
+        startUpdateTransition(() => {
+            form.reset();
+            toast.success("Task updated");
+            props.onOpenChange?.(false);
+        });
     }
 
     return (
@@ -245,22 +242,21 @@ export function UpdateTaskSheet({ task, ...props }: UpdateTaskSheetProps) {
                                         </FormItem>
                                     )}
                                 />
+                                <SheetFooter className="gap-2 pt-2 sm:space-x-0">
+                                    <SheetClose asChild>
+                                        <Button type="button" variant="outline">
+                                            Cancel
+                                        </Button>
+                                    </SheetClose>
+                                    <Button disabled={isUpdatePending} type="submit">
+                                        {isUpdatePending && <Icons.spinner className="mr-2 size-4 animate-spin" aria-hidden="true" />}
+                                        Save
+                                    </Button>
+                                </SheetFooter>
                             </form>
                         </Form>
                     </div>
                 </ScrollArea>
-
-                <SheetFooter className="gap-2 pt-2 sm:space-x-0">
-                    <SheetClose asChild>
-                        <Button type="button" variant="outline">
-                            Cancel
-                        </Button>
-                    </SheetClose>
-                    <Button disabled={isUpdatePending} type="submit">
-                        {isUpdatePending && <Icons.spinner className="mr-2 size-4 animate-spin" aria-hidden="true" />}
-                        Save
-                    </Button>
-                </SheetFooter>
             </SheetContent>
         </Sheet>
     );

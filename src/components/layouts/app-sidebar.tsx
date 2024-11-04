@@ -29,6 +29,7 @@ import { useUserStore } from "@/store/userStore";
 import { BadgeCheck, Bell, ChevronsUpDown, GalleryVerticalEnd, LogOut } from "lucide-react";
 import * as React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { toast } from "sonner";
 import { Breadcrumbs } from "../gadget/breadcrumbs";
 import { Icons } from "../gadget/icons";
 import ThemeToggle from "./theme-toggle";
@@ -46,7 +47,11 @@ export default function AppSidebar({ children }: { children: React.ReactNode }) 
     const pathname = location.pathname;
 
     const signOut = () => {
-        useUserStore.getState().clearUserRole();
+        const toastId = toast.success("Logged out successfully");
+        setTimeout(() => {
+            toast.dismiss(toastId);
+            useUserStore.getState().clearUserRole();
+        }, 800);
     };
 
     return (

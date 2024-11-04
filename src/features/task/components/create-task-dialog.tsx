@@ -26,13 +26,14 @@ import {
 
 import { useState, useTransition } from "react";
 import { useMedia } from "react-use";
+import { toast } from "sonner";
 import { CreateTask, createTaskSchema } from "../schema/schema";
 import { CreateTaskForm } from "./create-task-form";
 
 export function CreateTaskDialog() {
     const [open, setOpen] = useState(false);
     const isDesktop = useMedia("(min-width: 640px)", false);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
     const [isCreatePending, startCreateTransition] = useTransition();
 
     const form = useForm<CreateTask>({
@@ -41,9 +42,22 @@ export function CreateTaskDialog() {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function onSubmit(values: CreateTask) {
-        // startCreateTransition(async () => {
-        //     setOpen(false);
-        // });
+        startCreateTransition(() => {
+            setOpen(false);
+            toast.promise(
+                new Promise((resolve) => {
+                    setTimeout(() => {
+                        form.reset();
+                        resolve(true);
+                    }, 1000);
+                }),
+                {
+                    loading: "Creating task...",
+                    success: "Task created successfully",
+                    error: "Failed to create task",
+                },
+            );
+        });
     }
 
     if (isDesktop)
