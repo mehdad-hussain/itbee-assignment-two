@@ -1,4 +1,4 @@
-import { Project, Task } from "@/types/types";
+import { Project, Task, TaskLabel, TaskPriority, TaskStatus } from "@/features/task/schema/schema";
 import { faker } from "@faker-js/faker";
 
 const projects: Project[] = Array.from({ length: 10 }, (_, index) => ({
@@ -8,20 +8,27 @@ const projects: Project[] = Array.from({ length: 10 }, (_, index) => ({
     status: faker.helpers.arrayElement(["in-progress", "completed", "pending"]),
     dueDate: faker.date.future().toISOString(),
     progress: faker.helpers.arrayElement([0, 25, 50, 75, 100]),
-    tasks: Array.from({ length: 5 }, (_, taskIndex) => ({
+    tasks: Array.from({ length: 50 }, (_, taskIndex) => ({
         id: taskIndex + 1,
         name: faker.lorem.sentence(),
         description: faker.lorem.paragraph(),
-        status: faker.helpers.arrayElement(["in-progress", "completed", "pending"]),
-        priority: faker.helpers.arrayElement(["high", "medium", "low"]),
-        dueDate: faker.date.future().toISOString(),
+        status: faker.helpers.arrayElement([
+            TaskStatus.TODO,
+            TaskStatus.BACKLOG,
+            TaskStatus.IN_PROGRESS,
+            TaskStatus.DONE,
+            TaskStatus.CANCELED,
+        ]),
+        priority: faker.helpers.arrayElement([TaskPriority.HIGH, TaskPriority.MEDIUM, TaskPriority.LOW]),
+        label: faker.helpers.arrayElement([TaskLabel.BUG, TaskLabel.FEATURE, TaskLabel.DOCUMENTATION]),
+        dueDate: faker.date.future(),
         assignedUser: faker.person.fullName(),
     })),
 }));
 
 const totalProjects = projects.length;
 const tasksInProgress = projects.reduce((acc, project) => {
-    return acc + project.tasks.filter((task) => task.status === "in-progress").length;
+    return acc + project.tasks.filter((task) => task.status === TaskStatus.IN_PROGRESS).length;
 }, 0);
 const upcomingDeadlines = projects.reduce((acc, project) => {
     return (

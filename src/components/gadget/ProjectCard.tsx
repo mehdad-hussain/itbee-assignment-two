@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Project } from "@/types/types";
+import { Project } from "@/features/task/schema/schema";
 import { format } from "date-fns";
 import React from "react";
 import { useNavigate } from "react-router-dom";

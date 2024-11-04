@@ -1,12 +1,11 @@
-"use client";
-
 import { Task } from "@/features/task/schema/schema";
 import { labels, priorities, statuses } from "@/types/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { Badge } from "../ui/badge";
-import { Checkbox } from "../ui/checkbox";
-import { DataTableColumnHeader } from "./data-table-column-header";
-import { DataTableRowActions } from "./data-table-row-actions";
+import { format } from "date-fns";
+import { DataTableColumnHeader } from "../../../components/data-table/data-table-column-header";
+import { DataTableRowActions } from "../../../components/data-table/data-table-row-actions";
+import { Badge } from "../../../components/ui/badge";
+import { Checkbox } from "../../../components/ui/checkbox";
 
 export const columns: ColumnDef<Task>[] = [
     {
@@ -32,21 +31,25 @@ export const columns: ColumnDef<Task>[] = [
     },
     {
         accessorKey: "id",
-        header: ({ column }) => <DataTableColumnHeader column={column} title="Task" />,
+        header: ({ column }) => <DataTableColumnHeader column={column} title="Task ID" />,
         cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
         enableSorting: false,
         enableHiding: false,
     },
     {
-        accessorKey: "title",
-        header: ({ column }) => <DataTableColumnHeader column={column} title="Title" />,
+        accessorKey: "name",
+        header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
         cell: ({ row }) => {
             const label = labels.find((label) => label.value === row.original.label);
 
             return (
-                <div className="flex space-x-2">
-                    {label && <Badge variant="outline">{label.label}</Badge>}
-                    <span className="max-w-[500px] truncate font-medium">{row.getValue("title")}</span>
+                <div className="flex space-x-2  w-[250px]">
+                    {label && (
+                        <Badge variant={label.value === "bug" ? "destructive" : label.value === "feature" ? "default" : "outline"}>
+                            {label.label}
+                        </Badge>
+                    )}
+                    <span className="max-w-[500px] truncate font-medium">{row.getValue("name")}</span>
                 </div>
             );
         },
@@ -96,7 +99,7 @@ export const columns: ColumnDef<Task>[] = [
     {
         accessorKey: "dueDate",
         header: ({ column }) => <DataTableColumnHeader column={column} title="Due Date" />,
-        cell: ({ row }) => row.getValue("dueDate"),
+        cell: ({ row }) => format(new Date(row.getValue("dueDate")), "MMM dd, y"),
     },
     {
         accessorKey: "assignedUser",
@@ -105,6 +108,6 @@ export const columns: ColumnDef<Task>[] = [
     },
     {
         id: "actions",
-        cell: () => <DataTableRowActions />,
+        cell: ({ row }) => <DataTableRowActions row={row} />,
     },
 ];
