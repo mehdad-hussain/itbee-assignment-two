@@ -45,7 +45,6 @@ const Login: React.FC = () => {
                         <Button onClick={() => handleLogin(Role.ProjectManager)}>Login as Project Manager</Button>
                         <Button onClick={() => handleLogin(Role.User)}>Login as User</Button>
                     </div>
-                    {/* <UserAuthForm /> */}
                     <p className="px-8 text-sm text-center text-muted-foreground">
                         By clicking continue, you agree to our{" "}
                         <Link to="/terms" className="underline underline-offset-4 hover:text-primary">

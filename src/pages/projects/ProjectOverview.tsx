@@ -1,7 +1,11 @@
+import { CalendarDateRangePicker } from "@/components/gadget/date-range-picker";
 import PageContainer from "@/components/layouts/page-container";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import api from "@/constants/mock-api";
+import { AreaGraph } from "@/features/overview/area-graph";
+import { BarGraph } from "@/features/overview/bar-graph";
+import { PieGraph } from "@/features/overview/pie-graph";
 import React from "react";
 
 const ProjectOverview: React.FC = () => {
@@ -30,13 +34,14 @@ const ProjectOverview: React.FC = () => {
             activeTeamMembers,
         };
     };
+
     return (
         <PageContainer scrollable>
             <div className="space-y-2">
                 <div className="flex items-center justify-between space-y-2">
                     <h2 className="text-2xl font-bold tracking-tight">Hi, Welcome back 👋</h2>
                     <div className="items-center hidden space-x-2 md:flex">
-                        {/* <CalendarDateRangePicker /> */}
+                        <CalendarDateRangePicker />
                         <Button>Download</Button>
                     </div>
                 </div>
@@ -134,26 +139,17 @@ const ProjectOverview: React.FC = () => {
                         </CardContent>
                     </Card>
                 </div>
-                {/* <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7">
-                            <div className="col-span-4">
-                                <BarGraph />
-                            </div>
-                            <Card className="col-span-4 md:col-span-3">
-                                <CardHeader>
-                                    <CardTitle>Recent Sales</CardTitle>
-                                    <CardDescription>You made 265 sales this month.</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <RecentSales />
-                                </CardContent>
-                            </Card>
-                            <div className="col-span-4">
-                                <AreaGraph />
-                            </div>
-                            <div className="col-span-4 md:col-span-3">
-                                <PieGraph />
-                            </div>
-                        </div> */}
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7">
+                    <div className="col-span-7">
+                        <BarGraph />
+                    </div>
+                    <div className="col-span-4 max-md:col-span-7">
+                        <AreaGraph />
+                    </div>
+                    <div className="col-span-3 max-md:col-span-7">
+                        <PieGraph />
+                    </div>
+                </div>
             </div>
         </PageContainer>
     );

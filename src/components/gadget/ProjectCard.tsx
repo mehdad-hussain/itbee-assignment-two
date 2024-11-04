@@ -13,13 +13,13 @@ interface ProjectCardProps {
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
     const navigate = useNavigate();
     return (
-        <Card className="p-4 shadow-md border border-gray-200 cursor-pointer" onClick={() => navigate(`/projects/${project.id}`)}>
+        <Card className="p-4 border border-gray-200 shadow-md cursor-pointer" onClick={() => navigate(`/dashboard/projects/${project.id}`)}>
             <CardHeader>
                 <CardTitle className="text-lg font-semibold">{project.name}</CardTitle>
                 <CardDescription className="text-sm text-muted-foreground line-clamp-2">{project.description}...</CardDescription>
             </CardHeader>
             <CardContent>
-                <div className="flex justify-between items-center mt-2">
+                <div className="flex items-center justify-between mt-2">
                     <Badge
                         className="capitalize p-1.5"
                         variant={project.status === "pending" ? "default" : project.status === "in-progress" ? "secondary" : "outline"}
