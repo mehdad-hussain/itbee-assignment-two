@@ -19,13 +19,7 @@ export function DataTableRowActions({ row }: { row: Row<Task> }) {
     return (
         <>
             <UpdateTaskSheet open={showUpdateTaskSheet} onOpenChange={setShowUpdateTaskSheet} task={row.original} />
-            <DeleteTasksDialog
-                open={showDeleteTaskDialog}
-                onOpenChange={setShowDeleteTaskDialog}
-                task={row.original}
-                showTrigger={false}
-                onSuccess={() => row.toggleSelected(false)}
-            />
+            <DeleteTasksDialog open={showDeleteTaskDialog} onOpenChange={setShowDeleteTaskDialog} task={row.original} showTrigger={false} />
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="flex h-8 w-8 p-0 data-[state=open]:bg-muted">

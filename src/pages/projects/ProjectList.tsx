@@ -1,7 +1,7 @@
 import ProjectCard from "@/components/gadget/ProjectCard";
 import PageContainer from "@/components/layouts/page-container";
 import api from "@/constants/mock-api";
-import { Project } from "@/types/types";
+import { Project } from "@/features/task/schema/schema";
 import { useEffect, useState } from "react";
 
 const ProjectList = () => {
@@ -13,8 +13,8 @@ const ProjectList = () => {
 
     return (
         <PageContainer scrollable>
-            <h1 className="text-2xl font-semibold mb-4">Project Overview</h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-4">
+            <h1 className="mb-4 text-2xl font-semibold">Project Overview</h1>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 2xl:grid-cols-3">
                 {projects.map((project) => (
                     <ProjectCard key={project.id} project={project} />
                 ))}

@@ -40,8 +40,7 @@ export function CreateTaskDialog() {
         resolver: zodResolver(createTaskSchema),
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    function onSubmit(values: CreateTask) {
+    function onSubmit() {
         startCreateTransition(() => {
             setOpen(false);
             toast.promise(

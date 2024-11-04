@@ -52,8 +52,7 @@ export function UpdateTaskSheet({ task, ...props }: UpdateTaskSheetProps) {
         });
     }, [task, form]);
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    function onSubmit(values: UpdateTask) {
+    function onSubmit() {
         startUpdateTransition(() => {
             form.reset();
             toast.success("Task updated");
