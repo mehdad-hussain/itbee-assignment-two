@@ -53,13 +53,13 @@ export default function AppSidebar({ children }: { children: React.ReactNode }) 
         <SidebarProvider>
             <Sidebar collapsible="icon">
                 <SidebarHeader>
-                    <div className="flex gap-2 py-2 text-sidebar-accent-foreground ">
-                        <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                    <div className="flex gap-2 py-2 text-sidebar-accent-foreground">
+                        <div className="flex items-center justify-center rounded-lg aspect-square size-8 bg-sidebar-primary text-sidebar-primary-foreground">
                             <company.logo className="size-4" />
                         </div>
-                        <div className="grid flex-1 text-left text-sm leading-tight">
-                            <span className="truncate font-semibold">{company.name}</span>
-                            <span className="truncate text-xs">{company.plan}</span>
+                        <div className="grid flex-1 text-sm leading-tight text-left">
+                            <span className="font-semibold truncate">{company.name}</span>
+                            <span className="text-xs truncate">{company.plan}</span>
                         </div>
                     </div>
                 </SidebarHeader>
@@ -92,14 +92,14 @@ export default function AppSidebar({ children }: { children: React.ReactNode }) 
                                         size="lg"
                                         className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                                     >
-                                        <Avatar className="h-8 w-8 rounded-lg">
+                                        <Avatar className="w-8 h-8 rounded-lg">
                                             <AvatarImage src={""} alt={userRole || ""} />
                                             <AvatarFallback className="rounded-lg">
                                                 {userRole?.slice(0, 2)?.toUpperCase() || "CN"}
                                             </AvatarFallback>
                                         </Avatar>
-                                        <div className="grid flex-1 text-left text-sm leading-tight">
-                                            <span className="truncate font-semibold">{userRole || ""}</span>
+                                        <div className="grid flex-1 text-sm leading-tight text-left">
+                                            <span className="font-semibold truncate">{userRole || ""}</span>
                                         </div>
                                         <ChevronsUpDown className="ml-auto size-4" />
                                     </SidebarMenuButton>
@@ -112,14 +112,14 @@ export default function AppSidebar({ children }: { children: React.ReactNode }) 
                                 >
                                     <DropdownMenuLabel className="p-0 font-normal">
                                         <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                                            <Avatar className="h-8 w-8 rounded-lg">
+                                            <Avatar className="w-8 h-8 rounded-lg">
                                                 <AvatarImage src={""} alt={userRole || ""} />
                                                 <AvatarFallback className="rounded-lg">
                                                     {userRole?.slice(0, 2)?.toUpperCase() || "CN"}
                                                 </AvatarFallback>
                                             </Avatar>
-                                            <div className="grid flex-1 text-left text-sm leading-tight">
-                                                <span className="truncate font-semibold">{userRole || ""}</span>
+                                            <div className="grid flex-1 text-sm leading-tight text-left">
+                                                <span className="font-semibold truncate">{userRole || ""}</span>
                                             </div>
                                         </div>
                                     </DropdownMenuLabel>
@@ -147,21 +147,23 @@ export default function AppSidebar({ children }: { children: React.ReactNode }) 
                 </SidebarFooter>
                 <SidebarRail />
             </Sidebar>
-            <SidebarInset>
-                <header className="flex h-16 shrink-0 items-center justify-between gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-                    <div className="flex items-center gap-2 px-4">
-                        <SidebarTrigger className="-ml-1" />
-                        <Separator orientation="vertical" className="mr-2 h-4" />
-                        <Breadcrumbs />
-                    </div>
+            <SidebarInset className="!overflow-x-hidden">
+                <>
+                    <header className="flex h-16 shrink-0 items-center justify-between gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+                        <div className="flex items-center gap-2 px-4">
+                            <SidebarTrigger className="-ml-1" />
+                            <Separator orientation="vertical" className="h-4 mr-2" />
+                            <Breadcrumbs />
+                        </div>
 
-                    <div className="flex items-center gap-2 px-4">
-                        <UserNav />
-                        <ThemeToggle />
-                    </div>
-                </header>
-                {/* page main content */}
-                {children}
+                        <div className="flex items-center gap-2 px-4">
+                            <UserNav />
+                            <ThemeToggle />
+                        </div>
+                    </header>
+                    {/* page main content */}
+                    {children}
+                </>
             </SidebarInset>
         </SidebarProvider>
     );

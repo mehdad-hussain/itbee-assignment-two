@@ -29,12 +29,12 @@ const AppRoutes: React.FC = () => {
                     element: <Navigate to="/dashboard/overview" replace />,
                 },
                 {
-                    path: "/dashboard",
+                    path: "dashboard",
                     element: <Navigate to="/dashboard/overview" replace />,
                 },
                 {
                     path: "login",
-                    element: <ErrorBoundary>{userRole ? <Navigate to="/projects" replace /> : <Login />}</ErrorBoundary>,
+                    element: <ErrorBoundary>{userRole ? <Navigate to="/dashboard/overview" replace /> : <Login />}</ErrorBoundary>,
                 },
                 {
                     path: "dashboard/overview",
