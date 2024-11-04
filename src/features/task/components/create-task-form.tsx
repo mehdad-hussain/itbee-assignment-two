@@ -7,7 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { format, parse } from "date-fns";
+import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { type UseFormReturn } from "react-hook-form";
 import { CreateTask, TaskLabel, TaskPriority, TaskStatus } from "../schema/schema";
@@ -154,7 +154,7 @@ export function CreateTaskForm({ onSubmit, form, children }: Props) {
                                             <PopoverContent className="w-auto p-0">
                                                 <Calendar
                                                     mode="single"
-                                                    selected={field.value ? parse(field.value, "PPP", new Date()) : undefined}
+                                                    selected={field.value ? (field.value, "PPP", new Date()) : undefined}
                                                     onSelect={(date) => field.onChange(date)}
                                                     initialFocus
                                                 />

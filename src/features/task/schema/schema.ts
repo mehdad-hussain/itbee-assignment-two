@@ -58,9 +58,7 @@ export const createTaskSchema = z.object({
         .refine((val) => Object.values(TaskPriority).includes(val), {
             message: "Invalid task priority",
         }),
-    dueDate: z.string().refine((val) => !isNaN(Date.parse(val)), {
-        message: "Invalid date format",
-    }),
+    dueDate: z.date({ message: "Invalid date format" }),
     label: z.enum([TaskLabel.BUG, TaskLabel.FEATURE, TaskLabel.DOCUMENTATION]).refine((val) => Object.values(TaskLabel).includes(val), {
         message: "Invalid task label",
     }),
