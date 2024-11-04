@@ -1,3 +1,4 @@
+import ErrorBoundary from "@/components/gadget/ErrorBoundary";
 import PrivateRoute from "@/components/gadget/PrivateRoute";
 import MainLayout from "@/components/layouts/MainLayout";
 import NotFound from "@/pages/NotFound";
@@ -17,7 +18,11 @@ const AppRoutes: React.FC = () => {
     const router = createBrowserRouter([
         {
             path: "/",
-            element: <MainLayout />, // Wrapping in MainLayout to show TopLoader
+            element: (
+                <ErrorBoundary>
+                    <MainLayout />
+                </ErrorBoundary>
+            ),
             children: [
                 {
                     path: "/",
@@ -29,45 +34,68 @@ const AppRoutes: React.FC = () => {
                 },
                 {
                     path: "login",
-                    element: userRole ? <Navigate to="/projects" replace /> : <Login />,
+                    element: <ErrorBoundary>{userRole ? <Navigate to="/projects" replace /> : <Login />}</ErrorBoundary>,
                 },
                 {
                     path: "dashboard/overview",
                     element: (
-                        <PrivateRoute allowedRoles={[Role.Admin, Role.ProjectManager, Role.User]} userRole={userRole}>
-                            <ProjectOverview />
-                        </PrivateRoute>
+                        <ErrorBoundary>
+                            <PrivateRoute allowedRoles={[Role.Admin, Role.ProjectManager, Role.User]} userRole={userRole}>
+                                <ProjectOverview />
+                            </PrivateRoute>
+                        </ErrorBoundary>
                     ),
+                },
+                {
+                    path: "dashboard/overview",
+                    element: (
+                        <ErrorBoundary>
+                            <PrivateRoute allowedRoles={[Role.Admin, Role.ProjectManager, Role.User]} userRole={userRole}>
+                                <ProjectOverview />
+                            </PrivateRoute>
+                        </ErrorBoundary>
+                    ),
+                    errorElement: <ErrorBoundary />,
                 },
                 {
                     path: "dashboard/projects",
                     element: (
-                        <PrivateRoute allowedRoles={[Role.Admin, Role.ProjectManager, Role.User]} userRole={userRole}>
-                            <ProjectList />
-                        </PrivateRoute>
+                        <ErrorBoundary>
+                            <PrivateRoute allowedRoles={[Role.Admin, Role.ProjectManager, Role.User]} userRole={userRole}>
+                                <ProjectList />
+                            </PrivateRoute>
+                        </ErrorBoundary>
                     ),
+                    errorElement: <ErrorBoundary />,
                 },
                 {
                     path: "dashboard/projects/:projectId",
                     element: (
-                        <PrivateRoute allowedRoles={[Role.Admin, Role.ProjectManager, Role.User]} userRole={userRole}>
-                            <ProjectDetails />
-                        </PrivateRoute>
+                        <ErrorBoundary>
+                            <PrivateRoute allowedRoles={[Role.Admin, Role.ProjectManager, Role.User]} userRole={userRole}>
+                                <ProjectDetails />
+                            </PrivateRoute>
+                        </ErrorBoundary>
                     ),
+                    errorElement: <ErrorBoundary />,
                 },
                 {
                     path: "dashboard/kanban",
                     element: (
-                        <PrivateRoute allowedRoles={[Role.Admin, Role.ProjectManager, Role.User]} userRole={userRole}>
-                            <Kanban />
-                        </PrivateRoute>
+                        <ErrorBoundary>
+                            <PrivateRoute allowedRoles={[Role.Admin, Role.ProjectManager, Role.User]} userRole={userRole}>
+                                <Kanban />
+                            </PrivateRoute>
+                        </ErrorBoundary>
                     ),
+                    errorElement: <ErrorBoundary />,
                 },
             ],
         },
         {
             path: "*",
             element: <NotFound />,
+            errorElement: <ErrorBoundary />,
         },
     ]);
 
